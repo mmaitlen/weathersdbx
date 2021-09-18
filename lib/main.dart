@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,11 +44,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     _fetchData() async {
-      String uri = "https://api.weather.gov/points/39.7456,-97.0892";
-      final headers = {"User-Agent": "(questinginc.com, questingin@gmail.com)"};
+      String lat="47.2528768";
+      String lon="-122.4442906";
+      //String uri = "https://api.weather.gov/points/$lat,$lon";
+      String stationLatest = "https://api.weather.gov/stations/KTIW/observations/latest";
+      String uri = stationLatest; // "https://api.weather.gov/gridpoints/SEW/117,51/forecast";
+      final headers ={"User-Agent": "(questinginc.com, questingin@gmail.com)"};
       http.Response response = await _httpClient.get(Uri.parse(uri), headers: headers);
-      print("response ${response.statusCode}");
-      print("body ${response.body}");
+      print("response ${jsonEncode( response.statusCode)}");
+      Map<String,dynamic> data = jsonDecode(response.body);
+      data.keys.forEach((key) {
+print("data ${data[key]}\n");
+      });
+      
     }
 
     return Scaffold(
