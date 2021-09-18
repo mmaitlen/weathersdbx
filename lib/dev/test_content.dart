@@ -1,4 +1,73 @@
-const CURRENT_OBS =
+const stationInfoKTIW = '''{
+  "@context": [
+    "https://geojson.org/geojson-ld/geojson-context.jsonld",
+    {
+      "@version": "1.1",
+      "wx": "https://api.weather.gov/ontology#",
+      "s": "https://schema.org/",
+      "geo": "http://www.opengis.net/ont/geosparql#",
+      "unit": "http://codes.wmo.int/common/unit/",
+      "@vocab": "https://api.weather.gov/ontology#",
+      "geometry": {
+        "@id": "s:GeoCoordinates",
+        "@type": "geo:wktLiteral"
+      },
+      "city": "s:addressLocality",
+      "state": "s:addressRegion",
+      "distance": {
+        "@id": "s:Distance",
+        "@type": "s:QuantitativeValue"
+      },
+      "bearing": {
+        "@type": "s:QuantitativeValue"
+      },
+      "value": {
+        "@id": "s:value"
+      },
+      "unitCode": {
+        "@id": "s:unitCode",
+        "@type": "@id"
+      },
+      "forecastOffice": {
+        "@type": "@id"
+      },
+      "forecastGridData": {
+        "@type": "@id"
+      },
+      "publicZone": {
+        "@type": "@id"
+      },
+      "county": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://api.weather.gov/stations/KTIW",
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -122.57611,
+      47.2675
+    ]
+  },
+  "properties": {
+    "@id": "https://api.weather.gov/stations/KTIW",
+    "@type": "wx:ObservationStation",
+    "elevation": {
+      "value": 96.012,
+      "unitCode": "unit:m"
+    },
+    "stationIdentifier": "KTIW",
+    "name": "Tacoma, Tacoma Narrows Airport",
+    "timeZone": "America/Los_Angeles",
+    "forecast": "https://api.weather.gov/zones/forecast/WAZ509",
+    "county": "https://api.weather.gov/zones/county/WAC053",
+    "fireWeatherZone": "https://api.weather.gov/zones/fire/WAZ654"
+  }
+}''';
+
+const currentObservationKTIW =
     '''{
   "@context": [
     "https://geojson.org/geojson-ld/geojson-context.jsonld",
