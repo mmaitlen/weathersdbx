@@ -1,30 +1,51 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
+import 'package:weathersdbx/app/app_mgr.dart';
+import 'package:weathersdbx/data/data_model.dart';
 
 import 'package:weathersdbx/main.dart';
+import 'package:weathersdbx/ui/current_obs_widget.dart';
 
+import 'utilies.dart';
+import 'widget_test.mocks.dart';
+
+// class MockAppMgr extends Mock implements AppMgr
+// {
+//   @override
+//   Future<CurrentObservation> fetchCurrentObservation() =>
+//       super.noSuchMethod(Invocation.getter(#fetchCurrentObservation),
+//           returnValue: Future.value(CurrentObservation(
+//             name: '',
+//             stationId: '',
+//             temperatureDegC: 111,
+//           )));
+// }
+
+@GenerateMocks([AppMgr])
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const WeatherSdbxApp());
+  testWidgets('Ensure expected temp is displayed', (WidgetTester tester) async {
+    final appMgr = MockAppMgr();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    when(appMgr.fetchCurrentObservation())
+        .thenAnswer((_) => Future.value(CurrentObservation(
+              name: "sometown",
+              stationId: "anid",
+              temperatureDegC: 333.0,
+            )));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pumpWidget(constructMaterialApp(
+      Provider<AppMgr>.value(
+        value: appMgr,
+        builder: (context, _) {
+          return const CurrentObsWidget();
+        },
+      ),
+    ));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.text("333.0"), findsOneWidget);
   });
 }
