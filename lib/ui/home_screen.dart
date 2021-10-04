@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weathersdbx/ui/current_obs_widget.dart';
-import 'package:weathersdbx/ui/menu.dart';
 
 class HomePage extends StatelessWidget {
   final String title;
@@ -11,9 +10,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: [
-          MenuWidget()
-        ],
       ),
       body: const Center(child: CurrentObsWidget()),
     );
