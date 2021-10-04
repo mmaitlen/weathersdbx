@@ -15,7 +15,7 @@ class CurrentObsWidget extends StatelessWidget {
           children: [
             Text(
               obs.name,
-              style: TextStyle(fontSize: 24, color: colorDeepBlue.opacity50),
+              style: TextStyle(fontSize: 24, color: colorCoolBlue.opacity50),
             ),
             const SizedBox(
               height: 8.0,
@@ -26,13 +26,13 @@ class CurrentObsWidget extends StatelessWidget {
               children: [
                 Text(
                   obs.temperatureDegC.toString(),
-                  style: const TextStyle(fontSize: 36, color: colorDeepBlue),
+                  style: const TextStyle(fontSize: 36, color: colorCoolBlue),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 4.0),
                   child: Text(
                     "\u2103",
-                    style: TextStyle(fontSize: 16, color: colorDeepBlue),
+                    style: TextStyle(fontSize: 16, color: colorCoolBlue),
                   ),
                 ),
               ],
